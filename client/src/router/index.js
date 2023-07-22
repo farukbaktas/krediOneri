@@ -7,6 +7,22 @@ const routes = [
         component: () => import('../views/Homepage.vue')
     },
     {
+        name: 'HousingLoan',
+        path: '/konut-kredisi',
+        component: () => import('../views/HousingLoan.vue')
+    },
+    {
+        name: 'LoanDetail',
+        path: '/konut-kredisi/:id',
+        component: () => import('../views/LoanDetail.vue'),
+        props: true
+    },
+    {
+        name: 'MainLoanSelect',
+        path: '/kredi',
+        component: () => import('../views/MainLoanSelect.vue')
+    },
+    {
         name: 'SignIn',
         path: '/signin',
         component: () => import('../views/SignIn.vue')
