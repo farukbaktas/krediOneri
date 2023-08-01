@@ -32,7 +32,7 @@
                                 <td class="border-x border-gray-400 px-5 py-2">{{ (Number(payment.mainBalance.toFixed(2))).toLocaleString() }} TL</td>
                             </tr>
                         </tbody>
-                        </table>
+                    </table>
                 </div>
             </div>
         </section>

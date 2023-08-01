@@ -32,7 +32,7 @@
                         <div class="col-span-1 flex justify-center">
                             <div>
                                 <button class="border-2 block px-6 py-1.5 text-orange-400 border-orange-500">Hemen Başvur</button>
-                                <router-link class="block text-center mt-1 border-b-2 border-gray-900" :to="{path: '/konut-kredisi', query: {amount: 100000, maturity: 120}}">Detay</router-link>
+                                <router-link class="block text-center mt-1 border-b-2 border-gray-900" :to="{path: `/konut-kredisi/${product.bank.seoName}`, query: {amount: 100000, maturity: 120}}">Detay</router-link>
                             </div>
                         </div>
                     </div>

@@ -23,6 +23,11 @@ const routes = [
         component: () => import('../views/MainLoanSelect.vue')
     },
     {
+        name: 'StuffArea',
+        path: '/edit',
+        component: () => import('../views/StuffArea.vue')
+    },
+    {
         name: 'SignIn',
         path: '/signin',
         component: () => import('../views/SignIn.vue')
