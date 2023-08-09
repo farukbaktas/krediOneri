@@ -12,15 +12,35 @@ const routes = [
         component: () => import('../views/HousingLoan.vue')
     },
     {
+        name: 'Deneme',
+        path: '/deneme',
+        component: () => import('../views/Deneme.vue')
+    },
+    {
         name: 'LoanDetail',
         path: '/konut-kredisi/:id',
         component: () => import('../views/LoanDetail.vue'),
         props: true
     },
     {
-        name: 'MainLoanSelect',
-        path: '/kredi',
-        component: () => import('../views/MainLoanSelect.vue')
+        name: 'Konut',
+        path: '/kredi/konut',
+        component: () => import('../views/Kredi/Konut.vue')
+    },
+    {
+        name: 'Ihtiyac',
+        path: '/kredi/ihtiyac',
+        component: () => import('../views/Kredi/Ihtiyac.vue')
+    },
+    {
+        name: 'Kobi',
+        path: '/kredi/kobi',
+        component: () => import('../views/Kredi/Kobi.vue')
+    },
+    {
+        name: 'Tasit',
+        path: '/kredi/tasit',
+        component: () => import('../views/Kredi/Tasit.vue')
     },
     {
         name: 'StuffArea',

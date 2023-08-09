@@ -52,7 +52,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 const products = ref([]);
 const route = useRoute();
-axios(`http://localhost:5000/api/housingloan/?amount=${route.query.amount}&maturity=${route.query.maturity}`)
+axios(`http://localhost:1111/api/housingloan/?amount=${route.query.amount}&maturity=${route.query.maturity}`)
     .then(res => {
         products.value = res.data.products
     }).catch(err => console.log(err))

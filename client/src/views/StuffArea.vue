@@ -74,7 +74,7 @@
 import axios from 'axios';
 import { ref } from 'vue';
 const products = ref('');
-axios('http://localhost:5000/api/getall')
+axios('http://localhost:1111/api/getall')
     .then((res) => {
         products.value = res.data.banks
     })

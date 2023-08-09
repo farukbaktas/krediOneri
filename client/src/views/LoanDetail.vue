@@ -50,7 +50,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 const route = useRoute();
 const paymentPlans = ref([]);
-axios.get(`http://localhost:5000/api//housingloan/detail/?bankSeoName=${props.id}&amount=${route.query.amount}&maturity=${route.query.maturity}`)
+axios.get(`http://localhost:1111/api//housingloan/detail/?bankSeoName=${props.id}&amount=${route.query.amount}&maturity=${route.query.maturity}`)
     .then(res => paymentPlans.value = res.data.productInfo.monthlyPayments)
     .catch(err => console.log(err))
 
