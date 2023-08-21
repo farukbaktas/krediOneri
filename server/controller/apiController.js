@@ -1,58 +1,98 @@
-const calcMonthlyPayment = require('../utils/calcMonthlyPayment');
-const banksModel = require('../database/Schemas/Banks');
-const houseLoansModel = require('../database/Schemas/HouseLoans');
-const { filteredHouseLoans } = require('../services/dbServices');
-const housingLoan = async (req, res) => {
-    const { amount, maturity } = req.query;
+const { getBankViaSeoName, getHouseLoanDetail, getHouseLoanList, getConsumerLoanList, getVehicleLoanList } = require('../Services/dbServices');
+const houseLoanPaymentPlan = require('../Utils/houseLoanPaymentPlan');
+const monthlyInstallmentCalculator = require('../Utils/monthlyInstallmentCalculator');
+
+const houseLoanList = async (req, res) => {
+    let { amount, maturity } = req.query;
     if (!amount || !maturity) return res.status(400).json({ success: false, message: 'Invalid queries' });
-    let houseLoans = await filteredHouseLoans(amount, maturity);
-    houseLoans = houseLoans.map(m => {
-        const monthlyInstallment = calcMonthlyPayment(amount, maturity, m.interestRate);
-        const fileFee = amount * 0.005
-        const expenseAmount = m.appraisementFee + fileFee + m.mortgageFee
-        const totalAmount = (monthlyInstallment * maturity) + expenseAmount
-        return { bankId: m.bank.id, ...m._doc, amount, maturity, monthlyInstallment, fileFee, expenseAmount, totalAmount }
+    [amount, maturity] = [parseInt(amount), parseInt(maturity)];
+    const matchedsLoanList = await getHouseLoanList(amount, maturity);
+    const changedLoanList = matchedsLoanList.map((loan) => {
+        const monthlyPayment = monthlyInstallmentCalculator(amount, maturity, (loan.interestRate / 100));
+        const totalInterest = (monthlyPayment * maturity) - amount;
+        const expenseAmount = amount * 0.005;
+        const totalFeeAmount = loan.appraisementFee + loan.mortgageFee + expenseAmount;
+        const totalAmount = totalInterest + amount + totalFeeAmount;
+        return {
+            ...loan._doc,
+            amount,
+            maturity,
+            monthlyInstallment: monthlyPayment,
+            totalInterest,
+            expenseAmount,
+            totalFeeAmount,
+            totalAmount,
+        }
     });
-    res.send({ products: houseLoans })
+    res.status(200).json({ products: changedLoanList })
 };
 
 const housingLoanDetail = async (req, res) => {
-    const { bankSeoName: seoName, amount, maturity } = req.query;
-    if (!amount || !maturity || !seoName) return res.status(400).json({ success: false, message: 'Invalid queries' });
-    const bank = await banksModel.findOne({ seoName });
-    if(!bank) return res.status(400).json({success: false, message: 'Invalid bank name'});
-    let houseLoans = await houseLoansModel.findOne({ bank, 'creditTerm.min': { $lte: maturity }, 'creditTerm.max': { $gte: maturity }, 'creditAmount.min': { $lte: amount }, 'creditAmount.max': { $gte: amount } }).select('-_id -creditAmount -creditTerm').populate({path: 'bank', select: '-_id -houseLoans'});
-    let mainPayment = amount;
-    const paymentPlan = {
-        amount,
-        maturity,
-        interestRate : houseLoans.interestRate,
-        monthlyPayments: []
-    };
-    const interestRate = houseLoans.interestRate / 100
-    const monthlyInstallment = calcMonthlyPayment(amount, maturity, houseLoans.interestRate);
+    const { bankSeoName: seoName, maturity, amount } = req.query;
+    if (!seoName || !maturity || !amount) return res.status(400).json({ success: false, message: 'Invalid queries' });
+    const bank = await getBankViaSeoName(seoName);
+    if (!bank) return res.status(400).json({ success: false, message: 'Invalid bankSeoName' });
+    const matchedLoan = await getHouseLoanDetail(amount, maturity, bank);
+    if (!matchedLoan) return res.status(400).json({ success: false, message: 'Not Found' });
+    const interestRate = matchedLoan.interestRate / 100;
+    const paymentPlan = { amount, maturity, interestRate, monthlyPayments: houseLoanPaymentPlan(amount, maturity, interestRate) };
+    const monthlyInstallment = monthlyInstallmentCalculator(amount, maturity, interestRate);
+    const totalInterestAmount = (monthlyInstallment * maturity) - amount;
+    const expenseAmount = (amount * 0.005);
+    const totalFeeAmount = matchedLoan.appraisementFee + matchedLoan.mortgageFee + expenseAmount;
+    const totalAmount = totalInterestAmount + parseInt(amount) + totalFeeAmount;
+    res.status(200).json({ productInfo: { ...matchedLoan._doc, expenseAmount, totalFeeAmount, amount, maturity, monthlyInstallment, totalInterestAmount, totalAmount }, paymentPlan });
+};
 
-    for (let i = 0; i < maturity; i++) {
-        let interestPayment = (Number(mainPayment * interestRate).toFixed(2));
-        let mainAmount = Number((monthlyInstallment - interestPayment).toFixed(2));
-        mainPayment -= monthlyInstallment - interestPayment;
-        const currMaturity = { currentMaturity: i + 1, monthlyInstallment, mainAmount, kkdf: 0, bsmv: 0, mainBalance: mainPayment, interestPayment }
-        paymentPlan.monthlyPayments.push(currMaturity)
-    }
-    res.send({ productInfo: paymentPlan })
+const consumerLoanList = async (req, res) => {
+    let { amount, maturity } = req.query;
+    if (!amount || !maturity || maturity == 'null' || amount == 'null') return res.status(400).json({ success: false, message: 'Invalid queries' });
+    [amount, maturity] = [parseInt(amount), parseInt(maturity)];
+    const matchedsLoanList = await getConsumerLoanList(amount, maturity);
+    const changedLoanList = matchedsLoanList.map((loan) => {
+        const monthlyPayment = monthlyInstallmentCalculator(amount, maturity, (loan.interestRate / 100));
+        const totalInterest = (monthlyPayment * maturity) - amount;
+        const expenseAmount = amount * 0.005;
+        const totalAmount = totalInterest + amount
+        return {
+            ...loan._doc,
+            amount,
+            maturity,
+            monthlyInstallment: monthlyPayment,
+            totalInterest,
+            expenseAmount,
+            totalAmount,
+        }
+    });
+    res.status(200).json({ products: changedLoanList });
+};
 
-}
-
-
-
-const getAll = async (req, res) => {
-    const banks = await banksModel.find().populate({path: 'houseLoans'});
-    console.log(banks);
-    res.json({success: true, banks})
+const vehicleLoanList = async (req, res) => {
+    let { amount, maturity, type } = req.query;
+    if (!amount || !maturity || !type || (type != '0' && type != '1')) return res.status(400).json({ success: false, message: 'Invalid queries' });
+    [amount, maturity] = [parseInt(amount), parseInt(maturity)];
+    const matchedsLoanList = await getVehicleLoanList(amount, maturity, type);
+    const changedLoanList = matchedsLoanList.map((loan) => {
+        const monthlyPayment = monthlyInstallmentCalculator(amount, maturity, (loan.interestRate / 100));
+        const totalInterest = (monthlyPayment * maturity) - amount;
+        const expenseAmount = amount * 0.005;
+        const totalAmount = totalInterest + amount
+        return {
+            ...loan._doc,
+            amount,
+            maturity,
+            monthlyInstallment: monthlyPayment,
+            totalInterest,
+            expenseAmount,
+            totalAmount,
+        }
+    });
+    res.status(200).json({ products: changedLoanList });
 }
 
 module.exports = {
-    housingLoan,
+    houseLoanList,
     housingLoanDetail,
-    getAll
+    consumerLoanList,
+    vehicleLoanList
 }

@@ -45,7 +45,20 @@ const banksSchema = new mongoose.Schema({
             type: mongoose.Types.ObjectId,
             ref: 'consumerLoans'
         }
-    ]
+    ],
+    vehicleStLoans: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'vehicleStLoans'
+        }
+    ],
+    vehicleNdLoans: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'vehicleNdLoans'
+        }
+    ],
+
 }, { versionKey: false });
 
 module.exports = mongoose.model('banks', banksSchema);

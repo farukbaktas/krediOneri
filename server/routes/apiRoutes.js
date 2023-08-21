@@ -1,9 +1,11 @@
 const router = require('express').Router();
-const { housingLoan, housingLoanDetail, getAll } = require('../controller/apiController');
-router.get('/housingloan', housingLoan);
+const { houseLoanList, housingLoanDetail, consumerLoanList, vehicleLoanList } = require('../Controller/apiController');
 
+router.get('/housingloan', houseLoanList);
 router.get('/housingloan/detail', housingLoanDetail);
 
-router.get('/getall', getAll)
+router.get('/consumerloan', consumerLoanList);
+
+router.get('/vehicleloan', vehicleLoanList);
 
 module.exports = router;
