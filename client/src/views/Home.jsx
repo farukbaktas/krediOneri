@@ -2,7 +2,6 @@ import FixedBanner from "../components/Home/FixedBanner";
 import Counts from "../components/Home/Counts";
 import Hero from "../components/Home/Hero";
 import Slider from "../components/Home/Slider";
-import HeroHome from "../components/Home/HeroHome";
 import Newsletter from "../components/Home/Newsletter";
 import Info from "../components/Home/Info";
 import Banner from "../components/Home/Bannere";
@@ -19,7 +18,6 @@ function Home() {
                 {/*  Page sections */}
                 <Hero />
                 <Slider />
-                <HeroHome />
                 <Counts />
                 <Banner />
                 <Info/>
