@@ -1,10 +1,11 @@
-import Banner from "../components/Home/Banner";
-import FeaturesHome from "../components/Home/Features";
-import FeaturesBlocks from "../components/Home/FeaturesBlocks";
-import Galery from "../components/Home/Galery";
+import FixedBanner from "../components/Home/FixedBanner";
+import Counts from "../components/Home/Counts";
+import Hero from "../components/Home/Hero";
+import Slider from "../components/Home/Slider";
 import HeroHome from "../components/Home/HeroHome";
 import Newsletter from "../components/Home/Newsletter";
-import Testimonials from "../components/Home/Testimonials";
+import Info from "../components/Home/Info";
+import Banner from "../components/Home/Bannere";
 import Header from '../components/Shared/Header';
 import Footer from '../components/Shared/Footer';
 
@@ -16,15 +17,16 @@ function Home() {
             <main className="flex-grow">
 
                 {/*  Page sections */}
-                <FeaturesBlocks />
-                <Galery />
+                <Hero />
+                <Slider />
                 <HeroHome />
-                <FeaturesHome />
-                <Testimonials />
+                <Counts />
+                <Banner />
+                <Info/>
                 <Newsletter />
 
             </main>
-            <Banner />
+            <FixedBanner />
             <Footer />
             {/*  Site footer */}
 
