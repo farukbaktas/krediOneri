@@ -12,7 +12,7 @@ function FeaturesBlocks() {
 
                     {/* Section header */}
                     <div className="max-w-4xl mx-auto text-center pb-12 md:pb-20">
-                        <h2 className="text-5xl h2 font-extrabold mb-4 mt-12">HayatınAAAAA <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-purple-900">finansal</span> yolculuğunda size rehberlik etmek</h2>
+                        <h2 className="text-5xl h2 font-extrabold mb-4 mt-12">Hayatın <span className="bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-purple-900">finansal</span> yolculuğunda size rehberlik etmek</h2>
                         <p className="text-xl text-purple-800">Karmaşıklıktan kurtulup kolay Kredi Öneri yardımlarıyla adımlarla finans koçunuz kendiniz olun.</p>
                     </div>
                     {/* Items */}
