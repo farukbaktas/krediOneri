@@ -88,14 +88,7 @@ function HeroHome() {
                                 </svg>
                             </div>
                             <button
-                                className="absolute top-full flex items-center transform -translate-y-1/2 bg-white rounded-full font-medium group p-4 shadow-lg"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                                    setVideoModalOpen(true);
-                                }}
-                                aria-controls="modal"
-                            >
+                                className="absolute top-full flex items-center transform -translate-y-1/2 bg-white rounded-full font-medium group p-4 shadow-lg">
                                 <svg
                                     className="w-6 h-6 fill-current text-gray-400 group-hover:text-blue-600 flex-shrink-0"
                                     viewBox="0 0 24 24"
