@@ -6,7 +6,7 @@ function Testimonials() {
             <div className="flex flex-col">
                 <div className="my-auto mx-36 py-28 px-2">                                          
                     <div class="shadow-indigo-500/50 shadow-md border rounded-2xl border-purple-500">
-                       <div className="bg-white-50 h-56 rounded-2xl "> 
+                       <div className="bg-white-50 h-56 rounded-2xl"> 
                             {/* banner ikonu*/}
                             <div className="flex">
                                 <div className="w-1/6 px-2">
