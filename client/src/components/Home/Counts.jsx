@@ -129,8 +129,7 @@ function FeaturesHome() {
                                 </div>
                             </div>
                         </div>
-                        
-
+                    
                     </div>
                 </div>
 
