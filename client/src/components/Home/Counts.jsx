@@ -14,9 +14,9 @@ function FeaturesHome() {
                 <div className="w-1/6 bg-white-500 h-12"></div>
 
                 <div className="w-4/6 h-12">
-                    <div className="flex">
-                    {/*first */}
-                    <div className="w-1/4 px-2">                                          
+                    <div className="flex">                    
+                    <div className="w-1/4 px-2">
+                    {/*first */}                                              
                             <div className="shadow-indigo-500/50 shadow-md border rounded-2xl border-purple-500">                                
                                 <div className="bg-white-400 rounded-2xl">                                    
                                     <div className="flex space-x-5 justify-center">
@@ -129,7 +129,8 @@ function FeaturesHome() {
                                 </div>
                             </div>
                         </div>
-                    
+                        
+
                     </div>
                 </div>
 
