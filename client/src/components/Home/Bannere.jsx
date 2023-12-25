@@ -4,7 +4,7 @@ function Testimonials() {
         <section className=""> 
         {/* banner kutucuğu*/}
             <div className="flex flex-col">
-                <div className="my-auto mx-36 py-28 px-2">                                          
+                <div className="my-auto mx-44 py-28 px-2">                                          
                     <div class="shadow-indigo-500/50 shadow-md border rounded-2xl border-purple-500">
                        <div className="bg-white-50 h-56 rounded-2xl"> 
                             {/* banner ikonu*/}
