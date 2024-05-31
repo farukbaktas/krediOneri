@@ -3,7 +3,6 @@ import Counts from "../components/Home/Counts";
 import Hero from "../components/Home/Hero";
 import Slider from "../components/Home/Slider";
 import Newsletter from "../components/Home/Newsletter";
-import Info from "../components/Home/Info";
 import Banner from "../components/Home/Bannere";
 import Header from '../components/Shared/Header';
 import Footer from '../components/Shared/Footer';
@@ -20,11 +19,9 @@ function Home() {
                 <Slider />
                 <Counts />
                 <Banner />
-                <Info/>
                 <Newsletter />
 
             </main>
-            <FixedBanner />
             <Footer />
             {/*  Site footer */}
 
