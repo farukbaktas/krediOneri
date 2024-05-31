@@ -1,4 +1,18 @@
+import React, { useState } from 'react';
+
 function Newsletter() {
+    const [email, setEmail] = useState('');
+    const [isSubscribed, setIsSubscribed] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (email) {
+            setIsSubscribed(true);
+            setEmail('');
+            // Buraya abonelik işlemlerini ekleyebilirsiniz.
+        }
+    };
+
     return (
         <section>
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -41,14 +55,32 @@ function Newsletter() {
                                 <p className="text-gray-300 text-lg mb-6">En son güncellemeler ve haberlerden haberdar olmak için abone olmayı unutmayın!</p>
 
                                 {/* CTA form */}
-                                <form className="w-full lg:w-auto">
+                                <form className="w-full lg:w-auto" onSubmit={handleSubmit}>
                                     <div className="flex flex-col sm:flex-row justify-center max-w-xs mx-auto sm:max-w-md lg:mx-0">
-                                        <input type="email" className="form-input w-full appearance-none bg-gray-800 border border-gray-700 focus:border-gray-600 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-gray-500" placeholder="Your email…" aria-label="Your email…" />
-                                        <a className="btn text-white bg-blue-600 hover:bg-blue-700 shadow" href="#0">Abone Ol!</a>
+                                        <input 
+                                            type="email" 
+                                            className="form-input w-full appearance-none bg-gray-800 border border-gray-700 focus:border-gray-600 rounded-sm px-4 py-3 mb-2 sm:mb-0 sm:mr-2 text-white placeholder-gray-500" 
+                                            placeholder="Your email…" 
+                                            aria-label="Your email…" 
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                        <button type="submit" className="btn text-white bg-blue-600 hover:bg-blue-700 shadow">Abone Ol!</button>
                                     </div>
                                     {/* Success message */}
-                                    {/* <p className="text-sm text-gray-400 mt-3">Thanks for subscribing!</p> */}
-                                    <p className="text-sm text-gray-400 mt-3">7 gün beleş sürüm kullanmak için abone olun</p>
+                                    {isSubscribed && (
+                                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                                            <div className="bg-white rounded-lg p-8">
+                                                <p className="text-lg">Başarıyla abone oldunuz!</p>
+                                                <button 
+                                                    onClick={() => setIsSubscribed(false)} 
+                                                    className="mt-4 btn bg-blue-600 text-white hover:bg-blue-700"
+                                                >
+                                                    Kapat
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </form>
                             </div>
 

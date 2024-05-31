@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './views/Home';
+import SignIn from './views/signin';
+
 import HouseLoan from './views/HouseLoan';
 import HouseLoansList from './views/HouseLoansList';
 import HouseLoanBankDetail from './views/HouseLoanBankDetail';
@@ -14,6 +16,7 @@ function App() {
     <div>
       <Routes>
         <Route exact path='/' element={<Home />} />
+        <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/konut-kredisi' element={<HouseLoan />}>
           <Route path='sorgulama' element={<HouseLoansList />} />
         </Route>
