@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 const Carousel = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
-        "https://media.discordapp.net/attachments/1171396831989739570/1245982541975130162/brands.jpg?ex=665abb2b&is=665969ab&hm=955167e62e701c53f15776d5f2ea1b7bbc99c40ec7dbc2a1a0b07ca4ecad531a&=&format=webp&width=2268&height=1064",
-        "https://media.discordapp.net/attachments/1171396831989739570/1241988482172325898/target.jpg?ex=665ab3e9&is=66596269&hm=55ae7572abe760e528bea89d52f1bda2402950465ffa569287379b335d5035e9&=&format=webp&width=1100&height=516",
-        "https://media.discordapp.net/attachments/1171396831989739570/1240904415842668618/meme.jpg?ex=665ab6cb&is=6659654b&hm=dab128fd18f6743cc180b164b8b95b4172496ef791f739a735b9e9ab89c89003&=&format=webp&width=2268&height=1064",
-        "https://media.discordapp.net/attachments/1171396831989739570/1237641008926429224/KOL.jpg?ex=665ab502&is=66596382&hm=890a2667504941073a85f107bf8adb57cee3a1223e1b2a9e7d017e30f56f6ffb&=&format=webp&width=1100&height=516",
+        "https://blucka.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmeme.124003ed.jpg&w=3840&q=75",
+        "https://blucka.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FKOL.7226ce19.jpg&w=3840&q=75",
+        "https://blucka.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbiggest.09f70c79.jpg&w=3840&q=75",
+        "https://blucka.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fweb3job.57a612f3.jpg&w=3840&q=75",
 
     ];
 
